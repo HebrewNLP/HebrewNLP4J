@@ -17,17 +17,17 @@ public class MorphInfo implements Serializable, Cloneable {
 	private Person Person;
 	private Smikut Smikut;
 	private Tense Tense;
-	private Gender SuffixGender;
-	private boolean SuffixPlural;
-	private Person SuffixPerson;
+	private Gender OwnershipGender;
+	private boolean OwnershipPlural;
+	private Person OwnershipPerson;
 	
 	@Override
 	public String toString() {
 		return "MorphInfo [BaseWord=" + BaseWord + ", Vav=" + Vav + ", Shiabud=" + Shiabud + ", PrepositionChars="
 				+ PrepositionChars + ", DefiniteArticle=" + DefiniteArticle + ", PartOfSpeech=" + PartOfSpeech
 				+ ", Gender=" + Gender + ", Plural=" + Plural + ", Person=" + Person + ", Smikut=" + Smikut + ", Tense="
-				+ Tense + ", SuffixGender=" + SuffixGender + ", SuffixPlural=" + SuffixPlural + ", SuffixPerson="
-				+ SuffixPerson + "]";
+				+ Tense + ", OwnershipGender=" + OwnershipGender + ", OwnershipPlural=" + OwnershipPlural + ", OwnershipPerson="
+				+ OwnershipPerson + "]";
 	}
 
 	@Override
@@ -43,9 +43,9 @@ public class MorphInfo implements Serializable, Cloneable {
 		result = prime * result + ((PrepositionChars == null) ? 0 : PrepositionChars.hashCode());
 		result = prime * result + ((Shiabud == null) ? 0 : Shiabud.hashCode());
 		result = prime * result + ((Smikut == null) ? 0 : Smikut.hashCode());
-		result = prime * result + ((SuffixGender == null) ? 0 : SuffixGender.hashCode());
-		result = prime * result + ((SuffixPerson == null) ? 0 : SuffixPerson.hashCode());
-		result = prime * result + (SuffixPlural ? 1231 : 1237);
+		result = prime * result + ((OwnershipGender == null) ? 0 : OwnershipGender.hashCode());
+		result = prime * result + ((OwnershipPerson == null) ? 0 : OwnershipPerson.hashCode());
+		result = prime * result + (OwnershipPlural ? 1231 : 1237);
 		result = prime * result + ((Tense == null) ? 0 : Tense.hashCode());
 		result = prime * result + (Vav ? 1231 : 1237);
 		return result;
@@ -81,11 +81,11 @@ public class MorphInfo implements Serializable, Cloneable {
 			return false;
 		if (Smikut != other.Smikut)
 			return false;
-		if (SuffixGender != other.SuffixGender)
+		if (OwnershipGender != other.OwnershipGender)
 			return false;
-		if (SuffixPerson != other.SuffixPerson)
+		if (OwnershipPerson != other.OwnershipPerson)
 			return false;
-		if (SuffixPlural != other.SuffixPlural)
+		if (OwnershipPlural != other.OwnershipPlural)
 			return false;
 		if (Tense != other.Tense)
 			return false;
@@ -183,31 +183,27 @@ public class MorphInfo implements Serializable, Cloneable {
 	}
 	
 	public Gender getSuffixGender() {
-		return SuffixGender;
+		return OwnershipGender;
 	}
 	
 	public void setSuffixGender(Gender suiffxGender) {
-		SuffixGender = suiffxGender;
+		OwnershipGender = suiffxGender;
 	}
 	
 	public boolean isSuffixPlural() {
-		return SuffixPlural;
+		return OwnershipPlural;
 	}
 	
 	public void setSuffixPlural(boolean suiffxPlural) {
-		SuffixPlural = suiffxPlural;
+		OwnershipPlural = suiffxPlural;
 	}
 	
 	public Person getSuffixPerson() {
-		return SuffixPerson;
+		return OwnershipPerson;
 	}
 	
 	public void setSuffixPerson(Person suiffxPerson) {
-		SuffixPerson = suiffxPerson;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+		OwnershipPerson = suiffxPerson;
 	}
 	
 }
