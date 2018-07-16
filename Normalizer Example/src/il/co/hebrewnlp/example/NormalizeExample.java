@@ -8,7 +8,7 @@ public class NormalizeExample {
 	public static void main(String[] args) throws Exception {
 		HebrewNLP.setPassword("...");
 		
-		String[] options = HebrewMorphology.normalizeWords(new String[] { "הילד", "שהלך", "לפרק", "ישב" });
+		String[] options = HebrewMorphology.normalizeSentence("הילד שהלך לפרק ישב");
 
 		for(String option : options) {
 			System.out.println(option);

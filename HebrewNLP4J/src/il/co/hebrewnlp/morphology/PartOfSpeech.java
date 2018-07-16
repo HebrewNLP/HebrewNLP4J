@@ -53,6 +53,11 @@ public enum PartOfSpeech implements Serializable, Cloneable {
 	CONJUNCTION,
 	
 	/**
+	 * סימני פיסוק
+	 */
+	PUNCTUATION,
+	
+	/**
 	 * מילית
 	 */
 	PARTICLE,
