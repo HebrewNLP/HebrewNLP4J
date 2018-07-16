@@ -1,5 +1,7 @@
 package il.co.hebrewnlp.preprocess;
 
+import java.util.Collection;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -43,6 +45,10 @@ public class Tokenizer {
     	}
     	return GSON.fromJson(responseJson, String[][].class);    	
 	}
+    
+    public static String[][] tokenizeSentences(Collection<String> sentences) throws Exception {
+    	return tokenizeSentences(sentences.toArray(new String[sentences.size()]));
+    }
     
     public static String[][] tokenizeSentences(String[] sentences) throws Exception {
 		if(HebrewNLP.getPassword() == null) {
