@@ -43,7 +43,7 @@ public class Tokenizer {
     	if(responseJson.startsWith("{\"error\":")) {
     		throw new Exception(GSON.fromJson(responseJson, MorphErrorResponse.class).error);
     	}
-    	return GSON.fromJson(responseJson, String[][].class);    	
+    	return GSON.fromJson(responseJson, String[][].class);
 	}
     
     public static String[][] tokenizeSentences(Collection<String> sentences) throws Exception {
