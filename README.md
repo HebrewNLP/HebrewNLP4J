@@ -17,16 +17,12 @@ HebrewNLP.setPassword("...");
 	- Sentencer
 	- Tokenizer
 	
-- Soundex
+- Multi-Lingual Soundex
 
 # Examples
 
 The solution contains a few project that demonstrait the use of the library.
 
-# Install
+# Download 
 
-We are working on uploading the library to maven for easier usage.
-
-You can also download a compiled JAR from the [Github Releases](https://github.com/HebrewNLP/HebrewNLP4J/releases/tag/1.3.0)
-
-You can also build the project directly from the source by downloading the solution and building.
+See [Github Releases](https://github.com/HebrewNLP/HebrewNLP4J/releases/tag/1.3.0)
