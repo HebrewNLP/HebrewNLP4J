@@ -19,6 +19,8 @@ HebrewNLP.setPassword("...");
 	
 - Multi-Lingual Soundex
 
+- English-Hebrew Name Translation
+
 # Examples
 
 The solution contains a few project that demonstrait the use of the library.
