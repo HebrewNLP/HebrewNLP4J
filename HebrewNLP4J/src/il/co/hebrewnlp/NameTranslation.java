@@ -68,7 +68,7 @@ public class NameTranslation {
     
     public static String[][] translate(String[] names, Language language, int threshold) throws Exception {
     	if(HebrewNLP.getPassword() == null) {
-    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method");
+    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
     	TranslationRequest request = new TranslationRequest();
     	request.token = HebrewNLP.getPassword();

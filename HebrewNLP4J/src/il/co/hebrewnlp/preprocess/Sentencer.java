@@ -25,7 +25,7 @@ public class Sentencer {
 	
 	public static String[] sentences(String text) throws Exception {
 		if(HebrewNLP.getPassword() == null) {
-    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method");
+    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
 		SentencerRequest request = new SentencerRequest();
     	request.token = HebrewNLP.getPassword();

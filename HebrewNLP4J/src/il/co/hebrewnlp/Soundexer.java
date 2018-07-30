@@ -24,7 +24,7 @@ public class Soundexer {
     
     public static String[][] soundex(String[] words) throws Exception {
 		if(HebrewNLP.getPassword() == null) {
-    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method");
+    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
 		SoundexRequest request = new SoundexRequest();
     	request.token = HebrewNLP.getPassword();

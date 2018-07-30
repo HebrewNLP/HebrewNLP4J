@@ -11,6 +11,12 @@ public final class HebrewNLP {
 		return password;
 	}
 	
+	/**
+	 * 
+	 * To get a password register at https://hebrew-nlp.co.il/registration.
+	 * 
+	 * @param password your password
+	 */
 	public static void setPassword(String password) {
 		HebrewNLP.password = password;
 	}

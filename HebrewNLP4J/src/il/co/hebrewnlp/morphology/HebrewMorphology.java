@@ -38,7 +38,7 @@ public class HebrewMorphology {
 
     public static String[][] normalizeText(String text) throws Exception {
     	if(HebrewNLP.getPassword() == null) {
-    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method");
+    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
     	MorphRequest request = new MorphRequest();
     	request.token = HebrewNLP.getPassword();
@@ -57,7 +57,7 @@ public class HebrewMorphology {
 
     public static String[][] normalizeSentences(String[] sentences) throws Exception {
     	if(HebrewNLP.getPassword() == null) {
-    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method");
+    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
     	MorphRequest request = new MorphRequest();
     	request.token = HebrewNLP.getPassword();
@@ -72,7 +72,7 @@ public class HebrewMorphology {
     
     public static String[] normalizeSentence(String sentence) throws Exception {
     	if(HebrewNLP.getPassword() == null) {
-    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method");
+    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
     	MorphRequest request = new MorphRequest();
     	request.token = HebrewNLP.getPassword();
@@ -91,7 +91,7 @@ public class HebrewMorphology {
     
     public static String[] normalizeWords(String[] words) throws Exception {
     	if(HebrewNLP.getPassword() == null) {
-    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method");
+    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
     	MorphRequest request = new MorphRequest();
     	request.token = HebrewNLP.getPassword();
@@ -110,7 +110,7 @@ public class HebrewMorphology {
     
     public static MorphInfo[][][] analyzeText(String text) throws Exception {
     	if(HebrewNLP.getPassword() == null) {
-    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method");
+    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
     	MorphRequest request = new MorphRequest();
     	request.token = HebrewNLP.getPassword();
@@ -129,7 +129,7 @@ public class HebrewMorphology {
     
     public static MorphInfo[][][] analyzeSentences(String[] sentences) throws Exception {
     	if(HebrewNLP.getPassword() == null) {
-    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method");
+    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
     	MorphRequest request = new MorphRequest();
     	request.token = HebrewNLP.getPassword();
@@ -144,7 +144,7 @@ public class HebrewMorphology {
     
     public static MorphInfo[][] analyzeSentence(String sentence) throws Exception {
     	if(HebrewNLP.getPassword() == null) {
-    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method");
+    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
     	MorphRequest request = new MorphRequest();
     	request.token = HebrewNLP.getPassword();
@@ -163,7 +163,7 @@ public class HebrewMorphology {
     
     public static MorphInfo[][] analyzeWords(String[] words) throws Exception {
     	if(HebrewNLP.getPassword() == null) {
-    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method");
+    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
     	MorphRequest request = new MorphRequest();
     	request.token = HebrewNLP.getPassword();

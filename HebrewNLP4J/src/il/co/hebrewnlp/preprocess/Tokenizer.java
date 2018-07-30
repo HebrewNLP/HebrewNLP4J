@@ -33,7 +33,7 @@ public class Tokenizer {
 	
     public static String[][] tokenizeText(String text) throws Exception {
 		if(HebrewNLP.getPassword() == null) {
-    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method");
+    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
 		SentencerRequest request = new SentencerRequest();
     	request.token = HebrewNLP.getPassword();
@@ -52,7 +52,7 @@ public class Tokenizer {
     
     public static String[][] tokenizeSentences(String[] sentences) throws Exception {
 		if(HebrewNLP.getPassword() == null) {
-    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method");
+    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
 		SentencerRequest request = new SentencerRequest();
     	request.token = HebrewNLP.getPassword();
@@ -67,7 +67,7 @@ public class Tokenizer {
     
 	public static String[] tokenizeSentence(String sentence) throws Exception {
 		if(HebrewNLP.getPassword() == null) {
-    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method");
+    		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
 		SentencerRequest request = new SentencerRequest();
     	request.token = HebrewNLP.getPassword();
