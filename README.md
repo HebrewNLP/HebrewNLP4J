@@ -27,4 +27,4 @@ The solution contains a few project that demonstrait the use of the library.
 
 # Download 
 
-See [Github Releases](https://github.com/HebrewNLP/HebrewNLP4J/releases/tag/1.4.0)
+See [Github Releases](https://github.com/HebrewNLP/HebrewNLP4J/releases)
