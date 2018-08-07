@@ -2,6 +2,8 @@ package il.co.hebrewnlp.morphology;
 
 import java.io.Serializable;
 
+import org.json.JSONObject;
+
 public class MorphInfo implements Serializable, Cloneable {
 
 	private static final long serialVersionUID = 3491575400994363231L;
@@ -20,6 +22,44 @@ public class MorphInfo implements Serializable, Cloneable {
 	private Gender OwnershipGender;
 	private boolean OwnershipPlural;
 	private Person OwnershipPerson;
+	
+	public static MorphInfo fromJson(JSONObject object) {
+		MorphInfo info = new MorphInfo();
+		info.BaseWord = object.getString("BaseWord");
+		info.Vav = object.getBoolean("Vav");
+		info.Shiabud = object.getEnum(Shiabud.class, "Shiabud");
+		info.PrepositionChars = object.getEnum(PrepositionChars.class, "PrepositionChars");
+		info.DefiniteArticle = object.getBoolean("DefiniteArticle");
+		info.PartOfSpeech = object.getEnum(PartOfSpeech.class, "PartOfSpeech");
+		info.Gender = object.getEnum(Gender.class, "Gender");
+		info.Plural = object.getBoolean("Plural");
+		info.Person = object.getEnum(Person.class, "Person");
+		info.Smikut = object.getEnum(Smikut.class, "Smikut");
+		info.Tense = object.getEnum(Tense.class, "Tense");
+		info.OwnershipGender = object.getEnum(Gender.class, "OwnershipGender");
+		info.OwnershipPlural = object.getBoolean("OwnershipPlural");
+		info.OwnershipPerson = object.getEnum(Person.class, "OwnershipPerson");
+		return info;
+	}
+	
+	public JSONObject toJson() {
+		JSONObject object = new JSONObject();
+		object.put("BaseWord", BaseWord);
+		object.put("Vav", Vav);
+		object.put("Shiabud", Shiabud);
+		object.put("PrepositionChars", PrepositionChars);
+		object.put("DefiniteArticle", DefiniteArticle);
+		object.put("PartOfSpeech", PartOfSpeech);
+		object.put("Gender", Gender);
+		object.put("Plural", Plural);
+		object.put("Person", Person);
+		object.put("Smikut", Smikut);
+		object.put("Tense", Tense);
+		object.put("OwnershipGender", OwnershipGender);
+		object.put("OwnershipPlural", OwnershipPlural);
+		object.put("OwnershipPerson", OwnershipPerson);
+		return object;
+	}
 	
 	@Override
 	public String toString() {

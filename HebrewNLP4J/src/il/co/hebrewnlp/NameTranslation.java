@@ -3,36 +3,15 @@ package il.co.hebrewnlp;
 import java.io.Serializable;
 import java.util.Collection;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class NameTranslation {
 	
 	public static final String NAME_TRANSLATION_ENDPOINT = "/service/translation/names";
-    private static final Gson GSON = new GsonBuilder().create();
 
     public enum Language implements Serializable, Cloneable {
-    	
     	HEBREW,
-    	
-    }
-    
-	private static class TranslationRequest {
-		@SuppressWarnings("unused")
-		public Language type;
-		
-		@SuppressWarnings("unused")
-		public int threshold;
-		
-    	@SuppressWarnings("unused")
-		public String token;
-
-    	@SuppressWarnings("unused")
-		public String[] words;	
-	}
-    
-    private static class ErrorResponse {
-    	public String error;
     }
     
     public static String[] translate(Collection<String> names, Language language) throws Exception {
@@ -44,7 +23,7 @@ public class NameTranslation {
     	String[] options = new String[translated.length];
     	for(int i = 0; i < translated.length; i++) {
     		String[] optionsForWord = translated[i];
-    		if(optionsForWord.length != 0) {    			
+    		if(optionsForWord.length != 0) {
     			options[i] = optionsForWord[0];
     		}else {
     			options[i] = null;
@@ -70,17 +49,18 @@ public class NameTranslation {
     	if(HebrewNLP.getPassword() == null) {
     		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
-    	TranslationRequest request = new TranslationRequest();
-    	request.token = HebrewNLP.getPassword();
-    	request.threshold = threshold;
-    	request.type = language;
-    	request.words = names;
-    	String requestJson = GSON.toJson(request);
+    	JSONObject request = new JSONObject();
+    	request.put("token", HebrewNLP.getPassword());
+    	request.put("threshold", threshold);
+    	request.put("type", language);
+    	request.put("words", names);
+    	String requestJson = request.toString();
     	String responseJson = Util.postJSONData(NAME_TRANSLATION_ENDPOINT, requestJson);
-    	if(responseJson.startsWith("{\"error\":")) {
-    		throw new Exception(GSON.fromJson(responseJson, ErrorResponse.class).error);
+    	if(!responseJson.startsWith("[")) {
+    		JSONObject object = new JSONObject(responseJson);
+    		throw new Exception(object.optString("error", "Expected String[][], got: " + object.toString()));
     	}
-    	return GSON.fromJson(responseJson, String[][].class);
+    	return Util.toDoubleStringArray(new JSONArray(responseJson));
     }
     
     public static String[] translate(String name, Language language, int threshold) throws Exception {

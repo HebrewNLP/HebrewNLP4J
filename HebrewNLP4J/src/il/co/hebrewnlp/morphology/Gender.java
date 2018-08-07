@@ -25,6 +25,5 @@ public enum Gender implements Serializable, Cloneable {
 	/**
 	 * נקבה
 	 */
-	FEMALE
-	
+	FEMALE	
 }

@@ -15,7 +15,7 @@ public class SentencerExample {
 	}
 	
 	public static void main(String[] args) throws Exception {
-		HebrewNLP.setPassword("whRHvDeVW7");
+		HebrewNLP.setPassword("...");
 
         String[] words = new String[] { "itay", "איתי" };
         String[][] phoneticCodes = Soundexer.soundex(words);

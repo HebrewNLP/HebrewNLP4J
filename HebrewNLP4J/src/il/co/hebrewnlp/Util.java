@@ -8,6 +8,11 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 import javax.xml.ws.http.HTTPException;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import il.co.hebrewnlp.morphology.MorphInfo;
+
 public class Util {
 	
 	public static final String API_DOMAIN = "https://hebrew-nlp.co.il";
@@ -35,6 +40,67 @@ public class Util {
 		}else {
 			throw new HTTPException(responseCode);
 		}
+	}
+	
+	public static String[] toStringArray(JSONArray array) {
+		String[] arr = new String[array.length()];
+		int i = 0;
+		for(Object obj : array) {
+			arr[i++] = obj.toString();
+		}
+		return arr;
+	}
+	
+	public static String[][] toDoubleStringArray(JSONArray array) {
+		String[][] arr = new String[array.length()][];
+		int i = 0;
+		for(Object obj : array) {
+			if(obj instanceof JSONArray) {
+				arr[i++] = toStringArray((JSONArray)obj);
+			}else {
+				throw new IllegalStateException("Expected JSONArray got " + obj.getClass());
+			}
+		}
+		return arr;
+	}
+	
+	public static MorphInfo[] toMorphInfoArray(JSONArray array) {
+		MorphInfo[] arr = new MorphInfo[array.length()];
+		int i = 0;
+		for(Object obj : array) {
+			if(obj instanceof JSONObject) {
+				arr[i++] = MorphInfo.fromJson((JSONObject)obj);				
+			}else {
+				throw new IllegalStateException("Expected JSONObject got " + obj.getClass());
+			}
+		}
+		return arr;
+	}
+	
+	public static MorphInfo[][] toDoubleMorphInfoArray(JSONArray array) {
+		MorphInfo[][] arr = new MorphInfo[array.length()][];
+		int i = 0;
+		for(Object obj : array) {
+			if(obj instanceof JSONArray) {
+				arr[i++] = toMorphInfoArray((JSONArray)obj);
+			}else {
+				throw new IllegalStateException("Expected JSONArray got " + obj.getClass());
+			}
+		}
+		return arr;
+	}
+	
+	public static MorphInfo[][][] toTrippleMorphInfoArray(JSONArray array) {
+		MorphInfo[][][] arr = new MorphInfo[array.length()][][];
+		int i = 0;
+		for(Object obj : array) {
+			if(obj instanceof JSONArray) {
+				arr[i++] = toDoubleMorphInfoArray((JSONArray)obj);
+			}else {
+				throw new IllegalStateException("Expected JSONArray got " + obj.getClass());
+			}
+		}
+		return arr;
 	}
 	
 }

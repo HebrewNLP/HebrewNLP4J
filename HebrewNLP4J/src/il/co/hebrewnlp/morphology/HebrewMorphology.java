@@ -3,8 +3,8 @@ package il.co.hebrewnlp.morphology;
 import java.io.Serializable;
 import java.util.Collection;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import il.co.hebrewnlp.HebrewNLP;
 import il.co.hebrewnlp.Util;
@@ -13,59 +13,12 @@ public class HebrewMorphology {
 	
 	public static final String MORPH_NORMALIZE_ENDPOINT = "/service/morphology/normalize";
     public static final String MORPH_ANALYZE_ENDPOINT = "/service/morphology/analyze";
-    private static final Gson GSON = new GsonBuilder().create();
 	
     public enum NormalizationType implements Serializable, Cloneable {
     	SEARCH,
     	INDEX,
     }
     
-    
-    private static class MorphologyRequest {
-    	
-    	@SuppressWarnings("unused")
-		public String token;
-
-    	@SuppressWarnings("unused")
-		public String[] words;
-    	
-    	@SuppressWarnings("unused")
-		public String text;
-    	
-    	@SuppressWarnings("unused")
-		public String sentence;
-    	
-    	@SuppressWarnings("unused")
-		public String[] sentences;
-    }
-    
-    private static class NormalizationRequest {
-    	
-    	@SuppressWarnings("unused")
-		public String token;
-    	
-    	@SuppressWarnings("unused")
-		public NormalizationType type;
-
-    	@SuppressWarnings("unused")
-		public String[] words;
-    	
-    	@SuppressWarnings("unused")
-		public String text;
-    	
-    	@SuppressWarnings("unused")
-		public String sentence;
-    	
-    	@SuppressWarnings("unused")
-		public String[] sentences;
-    }
-    
-    private static class MorphErrorResponse {
-    	public String error;
-    }
-    
-    /*----------------------------------------------------------------------------*/
-
     public static String[][] normalizeText(String text) throws Exception {
     	return normalizeText(text, NormalizationType.SEARCH);
     }
@@ -74,16 +27,17 @@ public class HebrewMorphology {
     	if(HebrewNLP.getPassword() == null) {
     		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
-    	NormalizationRequest request = new NormalizationRequest();
-    	request.token = HebrewNLP.getPassword();
-    	request.type = type;
-    	request.text = text;
-    	String requestJson = GSON.toJson(request);
+    	JSONObject request = new JSONObject();
+    	request.put("token", HebrewNLP.getPassword());
+    	request.put("type", type);
+		request.put("text", text);
+    	String requestJson = request.toString();
     	String responseJson = Util.postJSONData(MORPH_NORMALIZE_ENDPOINT, requestJson);
-    	if(responseJson.startsWith("{\"error\":")) {
-    		throw new Exception(GSON.fromJson(responseJson, MorphErrorResponse.class).error);
+    	if(!responseJson.startsWith("[")) {
+    		JSONObject object = new JSONObject(responseJson);
+    		throw new Exception(object.optString("error", "Expected String[][], got: " + object.toString()));
     	}
-    	return GSON.fromJson(responseJson, String[][].class);
+    	return Util.toDoubleStringArray(new JSONArray(responseJson));
     }
     
     public static String[][] normalizeSentences(Collection<String> sentences) throws Exception {
@@ -102,16 +56,17 @@ public class HebrewMorphology {
     	if(HebrewNLP.getPassword() == null) {
     		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
-    	NormalizationRequest request = new NormalizationRequest();
-    	request.token = HebrewNLP.getPassword();
-    	request.type = type;
-    	request.sentences = sentences;
-    	String requestJson = GSON.toJson(request);
+    	JSONObject request = new JSONObject();
+    	request.put("token", HebrewNLP.getPassword());
+		request.put("type", type);
+		request.put("sentences", sentences);
+    	String requestJson = request.toString();
     	String responseJson = Util.postJSONData(MORPH_NORMALIZE_ENDPOINT, requestJson);
-    	if(responseJson.startsWith("{\"error\":")) {
-    		throw new Exception(GSON.fromJson(responseJson, MorphErrorResponse.class).error);
+    	if(!responseJson.startsWith("[")) {
+    		JSONObject object = new JSONObject(responseJson);
+    		throw new Exception(object.optString("error", "Expected String[][], got: " + object.toString()));
     	}
-    	return GSON.fromJson(responseJson, String[][].class);
+    	return Util.toDoubleStringArray(new JSONArray(responseJson));
     }
     
     public static String[] normalizeSentence(String sentence) throws Exception {
@@ -122,16 +77,17 @@ public class HebrewMorphology {
     	if(HebrewNLP.getPassword() == null) {
     		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
-    	NormalizationRequest request = new NormalizationRequest();
-    	request.token = HebrewNLP.getPassword();
-    	request.type = type;
-    	request.sentence = sentence;
-    	String requestJson = GSON.toJson(request);
+    	JSONObject request = new JSONObject();
+    	request.put("token", HebrewNLP.getPassword());
+		request.put("type", type);
+		request.put("sentence", sentence);
+    	String requestJson = request.toString();
     	String responseJson = Util.postJSONData(MORPH_NORMALIZE_ENDPOINT, requestJson);
-    	if(responseJson.startsWith("{\"error\":")) {
-    		throw new Exception(GSON.fromJson(responseJson, MorphErrorResponse.class).error);
+    	if(!responseJson.startsWith("[")) {
+    		JSONObject object = new JSONObject(responseJson);
+    		throw new Exception(object.optString("error", "Expected String[], got: " + object.toString()));
     	}
-    	return GSON.fromJson(responseJson, String[].class);
+    	return Util.toStringArray(new JSONArray(responseJson));
     }
     
     public static String[] normalizeWords(Collection<String> words) throws Exception {
@@ -150,16 +106,17 @@ public class HebrewMorphology {
     	if(HebrewNLP.getPassword() == null) {
     		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
-    	NormalizationRequest request = new NormalizationRequest();
-    	request.token = HebrewNLP.getPassword();
-    	request.type = type;
-    	request.words = words;
-    	String requestJson = GSON.toJson(request);
+    	JSONObject request = new JSONObject();
+    	request.put("token", HebrewNLP.getPassword());
+    	request.put("type", type);
+    	request.put("words", words);
+    	String requestJson = request.toString();
     	String responseJson = Util.postJSONData(MORPH_NORMALIZE_ENDPOINT, requestJson);
-    	if(responseJson.startsWith("{\"error\":")) {
-    		throw new Exception(GSON.fromJson(responseJson, MorphErrorResponse.class).error);
+    	if(!responseJson.startsWith("[")) {
+    		JSONObject object = new JSONObject(responseJson);
+    		throw new Exception(object.optString("error", "Expected String[], got: " + object.toString()));
     	}
-    	return GSON.fromJson(responseJson, String[].class);
+    	return Util.toStringArray(new JSONArray(responseJson));
     }
 
     public static String normalizeWord(String word) throws Exception {
@@ -176,15 +133,16 @@ public class HebrewMorphology {
     	if(HebrewNLP.getPassword() == null) {
     		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
-    	MorphologyRequest request = new MorphologyRequest();
-    	request.token = HebrewNLP.getPassword();
-    	request.text = text;
-    	String requestJson = GSON.toJson(request);
+    	JSONObject request = new JSONObject();
+    	request.put("token", HebrewNLP.getPassword());
+    	request.put("text", text);
+    	String requestJson = request.toString();
     	String responseJson = Util.postJSONData(MORPH_ANALYZE_ENDPOINT, requestJson);
-    	if(responseJson.startsWith("{\"error\":")) {
-    		throw new Exception(GSON.fromJson(responseJson, MorphErrorResponse.class).error);
+    	if(!responseJson.startsWith("[")) {
+    		JSONObject object = new JSONObject(responseJson);
+    		throw new Exception(object.optString("error", "Expected MorphInfo[][][], got: " + object.toString()));
     	}
-    	return GSON.fromJson(responseJson, MorphInfo[][][].class);
+    	return Util.toTrippleMorphInfoArray(new JSONArray(responseJson));
     }
 
     public static MorphInfo[][][] analyzeSentences(Collection<String> sentences) throws Exception {
@@ -195,30 +153,32 @@ public class HebrewMorphology {
     	if(HebrewNLP.getPassword() == null) {
     		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
-    	MorphologyRequest request = new MorphologyRequest();
-    	request.token = HebrewNLP.getPassword();
-    	request.sentences = sentences;
-    	String requestJson = GSON.toJson(request);
+    	JSONObject request = new JSONObject();
+    	request.put("token", HebrewNLP.getPassword());
+    	request.put("sentences", sentences);
+    	String requestJson = request.toString();
     	String responseJson = Util.postJSONData(MORPH_ANALYZE_ENDPOINT, requestJson);
-    	if(responseJson.startsWith("{\"error\":")) {
-    		throw new Exception(GSON.fromJson(responseJson, MorphErrorResponse.class).error);
+    	if(!responseJson.startsWith("[")) {
+    		JSONObject object = new JSONObject(responseJson);
+    		throw new Exception(object.optString("error", "Expected MorphInfo[][][], got: " + object.toString()));
     	}
-    	return GSON.fromJson(responseJson, MorphInfo[][][].class);
+    	return Util.toTrippleMorphInfoArray(new JSONArray(responseJson));
     }
     
     public static MorphInfo[][] analyzeSentence(String sentence) throws Exception {
     	if(HebrewNLP.getPassword() == null) {
     		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
-    	MorphologyRequest request = new MorphologyRequest();
-    	request.token = HebrewNLP.getPassword();
-    	request.sentence = sentence;
-    	String requestJson = GSON.toJson(request);
+    	JSONObject request = new JSONObject();
+    	request.put("token", HebrewNLP.getPassword());
+    	request.put("sentence", sentence);
+    	String requestJson = request.toString();
     	String responseJson = Util.postJSONData(MORPH_ANALYZE_ENDPOINT, requestJson);
-    	if(responseJson.startsWith("{\"error\":")) {
-    		throw new Exception(GSON.fromJson(responseJson, MorphErrorResponse.class).error);
+    	if(!responseJson.startsWith("[")) {
+    		JSONObject object = new JSONObject(responseJson);
+    		throw new Exception(object.optString("error", "Expected MorphInfo[][], got: " + object.toString()));
     	}
-    	return GSON.fromJson(responseJson, MorphInfo[][].class);
+    	return Util.toDoubleMorphInfoArray(new JSONArray(responseJson));
     }
     
     public static MorphInfo[][] analyzeWords(Collection<String> words) throws Exception {
@@ -229,15 +189,16 @@ public class HebrewMorphology {
     	if(HebrewNLP.getPassword() == null) {
     		throw new IllegalStateException("Please set HebrewNLP.setPassword() method with your password before using this method. To get a password register at https://hebrew-nlp.co.il/registration.");
     	}
-    	MorphologyRequest request = new MorphologyRequest();
-    	request.token = HebrewNLP.getPassword();
-    	request.words = words;
-    	String requestJson = GSON.toJson(request);
+    	JSONObject request = new JSONObject();
+    	request.put("token", HebrewNLP.getPassword());
+    	request.put("words", words);
+    	String requestJson = request.toString();
     	String responseJson = Util.postJSONData(MORPH_ANALYZE_ENDPOINT, requestJson);
-    	if(responseJson.startsWith("{\"error\":")) {
-    		throw new Exception(GSON.fromJson(responseJson, MorphErrorResponse.class).error);
+    	if(!responseJson.startsWith("[")) {
+    		JSONObject object = new JSONObject(responseJson);
+    		throw new Exception(object.optString("error", "Expected MorphInfo[][], got: " + object.toString()));
     	}
-    	return GSON.fromJson(responseJson, MorphInfo[][].class);
+    	return Util.toDoubleMorphInfoArray(new JSONArray(responseJson));
     }
 
     public static MorphInfo[] analyzeWord(String word) throws Exception {
