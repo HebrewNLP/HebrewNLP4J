@@ -17,12 +17,12 @@ public class Soundexer {
     	request.put("token", HebrewNLP.getPassword());
     	request.put("words", words);
     	String requestJson = request.toString();
-    	String responseJson = Util.postJSONData(SOUNDEX_ENDPOINT, requestJson);
+    	String responseJson = HttpUtils.postJSONData(SOUNDEX_ENDPOINT, requestJson);
     	if(!responseJson.startsWith("[")) {
     		JSONObject object = new JSONObject(responseJson);
     		throw new Exception(object.optString("error", "Expected String[][], got: " + object.toString()));
     	}
-    	return Util.toDoubleStringArray(new JSONArray(responseJson));
+    	return HttpUtils.toDoubleStringArray(new JSONArray(responseJson));
     }
     
     public static String[][] soundex(Collection<String> words) throws Exception {

@@ -55,12 +55,12 @@ public class NameTranslation {
     	request.put("type", language);
     	request.put("words", names);
     	String requestJson = request.toString();
-    	String responseJson = Util.postJSONData(NAME_TRANSLATION_ENDPOINT, requestJson);
+    	String responseJson = HttpUtils.postJSONData(NAME_TRANSLATION_ENDPOINT, requestJson);
     	if(!responseJson.startsWith("[")) {
     		JSONObject object = new JSONObject(responseJson);
     		throw new Exception(object.optString("error", "Expected String[][], got: " + object.toString()));
     	}
-    	return Util.toDoubleStringArray(new JSONArray(responseJson));
+    	return HttpUtils.toDoubleStringArray(new JSONArray(responseJson));
     }
     
     public static String[] translate(String name, Language language, int threshold) throws Exception {

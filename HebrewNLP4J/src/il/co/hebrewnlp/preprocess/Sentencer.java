@@ -4,7 +4,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import il.co.hebrewnlp.HebrewNLP;
-import il.co.hebrewnlp.Util;
+import il.co.hebrewnlp.HttpUtils;
 
 public class Sentencer {
 	
@@ -18,12 +18,12 @@ public class Sentencer {
     	request.put("token", HebrewNLP.getPassword());
     	request.put("text", text);
     	String requestJson = request.toString();
-    	String responseJson = Util.postJSONData(PREPROCESS_SENTENCER_ENDPOINT, requestJson);
+    	String responseJson = HttpUtils.postJSONData(PREPROCESS_SENTENCER_ENDPOINT, requestJson);
     	if(!responseJson.startsWith("[")) {
     		JSONObject object = new JSONObject(responseJson);
     		throw new Exception(object.optString("error", "Expected String[], got: " + object.toString()));
     	}
-    	return Util.toStringArray(new JSONArray(responseJson));  	
+    	return HttpUtils.toStringArray(new JSONArray(responseJson));  	
 	}
 	
 }

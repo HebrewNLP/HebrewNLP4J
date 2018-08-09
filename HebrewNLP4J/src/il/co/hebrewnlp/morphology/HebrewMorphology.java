@@ -7,7 +7,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import il.co.hebrewnlp.HebrewNLP;
-import il.co.hebrewnlp.Util;
+import il.co.hebrewnlp.HttpUtils;
 
 public class HebrewMorphology {
 	
@@ -32,12 +32,12 @@ public class HebrewMorphology {
     	request.put("type", type);
 		request.put("text", text);
     	String requestJson = request.toString();
-    	String responseJson = Util.postJSONData(MORPH_NORMALIZE_ENDPOINT, requestJson);
+    	String responseJson = HttpUtils.postJSONData(MORPH_NORMALIZE_ENDPOINT, requestJson);
     	if(!responseJson.startsWith("[")) {
     		JSONObject object = new JSONObject(responseJson);
     		throw new Exception(object.optString("error", "Expected String[][], got: " + object.toString()));
     	}
-    	return Util.toDoubleStringArray(new JSONArray(responseJson));
+    	return HttpUtils.toDoubleStringArray(new JSONArray(responseJson));
     }
     
     public static String[][] normalizeSentences(Collection<String> sentences) throws Exception {
@@ -61,12 +61,12 @@ public class HebrewMorphology {
 		request.put("type", type);
 		request.put("sentences", sentences);
     	String requestJson = request.toString();
-    	String responseJson = Util.postJSONData(MORPH_NORMALIZE_ENDPOINT, requestJson);
+    	String responseJson = HttpUtils.postJSONData(MORPH_NORMALIZE_ENDPOINT, requestJson);
     	if(!responseJson.startsWith("[")) {
     		JSONObject object = new JSONObject(responseJson);
     		throw new Exception(object.optString("error", "Expected String[][], got: " + object.toString()));
     	}
-    	return Util.toDoubleStringArray(new JSONArray(responseJson));
+    	return HttpUtils.toDoubleStringArray(new JSONArray(responseJson));
     }
     
     public static String[] normalizeSentence(String sentence) throws Exception {
@@ -82,12 +82,12 @@ public class HebrewMorphology {
 		request.put("type", type);
 		request.put("sentence", sentence);
     	String requestJson = request.toString();
-    	String responseJson = Util.postJSONData(MORPH_NORMALIZE_ENDPOINT, requestJson);
+    	String responseJson = HttpUtils.postJSONData(MORPH_NORMALIZE_ENDPOINT, requestJson);
     	if(!responseJson.startsWith("[")) {
     		JSONObject object = new JSONObject(responseJson);
     		throw new Exception(object.optString("error", "Expected String[], got: " + object.toString()));
     	}
-    	return Util.toStringArray(new JSONArray(responseJson));
+    	return HttpUtils.toStringArray(new JSONArray(responseJson));
     }
     
     public static String[] normalizeWords(Collection<String> words) throws Exception {
@@ -111,20 +111,20 @@ public class HebrewMorphology {
     	request.put("type", type);
     	request.put("words", words);
     	String requestJson = request.toString();
-    	String responseJson = Util.postJSONData(MORPH_NORMALIZE_ENDPOINT, requestJson);
+    	String responseJson = HttpUtils.postJSONData(MORPH_NORMALIZE_ENDPOINT, requestJson);
     	if(!responseJson.startsWith("[")) {
     		JSONObject object = new JSONObject(responseJson);
     		throw new Exception(object.optString("error", "Expected String[], got: " + object.toString()));
     	}
-    	return Util.toStringArray(new JSONArray(responseJson));
+    	return HttpUtils.toStringArray(new JSONArray(responseJson));
     }
 
     public static String normalizeWord(String word) throws Exception {
-    	return normalizeWord(word, NormalizationType.SEARCH);
+    	return normalizeWord(word, NormalizationType.SEARCH)[0];
     }
     
-    public static String normalizeWord(String word, NormalizationType type) throws Exception {
-    	return normalizeWords(new String[] { word }, type)[0];
+    public static String[] normalizeWord(String word, NormalizationType type) throws Exception {
+    	return normalizeWords(new String[] { word }, type);
     }
     
     /*----------------------------------------------------------------------------*/
@@ -137,12 +137,12 @@ public class HebrewMorphology {
     	request.put("token", HebrewNLP.getPassword());
     	request.put("text", text);
     	String requestJson = request.toString();
-    	String responseJson = Util.postJSONData(MORPH_ANALYZE_ENDPOINT, requestJson);
+    	String responseJson = HttpUtils.postJSONData(MORPH_ANALYZE_ENDPOINT, requestJson);
     	if(!responseJson.startsWith("[")) {
     		JSONObject object = new JSONObject(responseJson);
     		throw new Exception(object.optString("error", "Expected MorphInfo[][][], got: " + object.toString()));
     	}
-    	return Util.toTrippleMorphInfoArray(new JSONArray(responseJson));
+    	return HttpUtils.toTrippleMorphInfoArray(new JSONArray(responseJson));
     }
 
     public static MorphInfo[][][] analyzeSentences(Collection<String> sentences) throws Exception {
@@ -157,12 +157,12 @@ public class HebrewMorphology {
     	request.put("token", HebrewNLP.getPassword());
     	request.put("sentences", sentences);
     	String requestJson = request.toString();
-    	String responseJson = Util.postJSONData(MORPH_ANALYZE_ENDPOINT, requestJson);
+    	String responseJson = HttpUtils.postJSONData(MORPH_ANALYZE_ENDPOINT, requestJson);
     	if(!responseJson.startsWith("[")) {
     		JSONObject object = new JSONObject(responseJson);
     		throw new Exception(object.optString("error", "Expected MorphInfo[][][], got: " + object.toString()));
     	}
-    	return Util.toTrippleMorphInfoArray(new JSONArray(responseJson));
+    	return HttpUtils.toTrippleMorphInfoArray(new JSONArray(responseJson));
     }
     
     public static MorphInfo[][] analyzeSentence(String sentence) throws Exception {
@@ -173,12 +173,12 @@ public class HebrewMorphology {
     	request.put("token", HebrewNLP.getPassword());
     	request.put("sentence", sentence);
     	String requestJson = request.toString();
-    	String responseJson = Util.postJSONData(MORPH_ANALYZE_ENDPOINT, requestJson);
+    	String responseJson = HttpUtils.postJSONData(MORPH_ANALYZE_ENDPOINT, requestJson);
     	if(!responseJson.startsWith("[")) {
     		JSONObject object = new JSONObject(responseJson);
     		throw new Exception(object.optString("error", "Expected MorphInfo[][], got: " + object.toString()));
     	}
-    	return Util.toDoubleMorphInfoArray(new JSONArray(responseJson));
+    	return HttpUtils.toDoubleMorphInfoArray(new JSONArray(responseJson));
     }
     
     public static MorphInfo[][] analyzeWords(Collection<String> words) throws Exception {
@@ -193,12 +193,12 @@ public class HebrewMorphology {
     	request.put("token", HebrewNLP.getPassword());
     	request.put("words", words);
     	String requestJson = request.toString();
-    	String responseJson = Util.postJSONData(MORPH_ANALYZE_ENDPOINT, requestJson);
+    	String responseJson = HttpUtils.postJSONData(MORPH_ANALYZE_ENDPOINT, requestJson);
     	if(!responseJson.startsWith("[")) {
     		JSONObject object = new JSONObject(responseJson);
     		throw new Exception(object.optString("error", "Expected MorphInfo[][], got: " + object.toString()));
     	}
-    	return Util.toDoubleMorphInfoArray(new JSONArray(responseJson));
+    	return HttpUtils.toDoubleMorphInfoArray(new JSONArray(responseJson));
     }
 
     public static MorphInfo[] analyzeWord(String word) throws Exception {

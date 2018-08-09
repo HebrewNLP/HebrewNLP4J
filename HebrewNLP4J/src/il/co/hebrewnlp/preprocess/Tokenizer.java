@@ -6,7 +6,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import il.co.hebrewnlp.HebrewNLP;
-import il.co.hebrewnlp.Util;
+import il.co.hebrewnlp.HttpUtils;
 
 public class Tokenizer {
 	
@@ -20,12 +20,12 @@ public class Tokenizer {
     	request.put("token", HebrewNLP.getPassword());
     	request.put("text", text);
     	String requestJson = request.toString();
-    	String responseJson = Util.postJSONData(PREPROCESS_TOKENIZER_ENDPOINT, requestJson);
+    	String responseJson = HttpUtils.postJSONData(PREPROCESS_TOKENIZER_ENDPOINT, requestJson);
     	if(!responseJson.startsWith("[")) {
     		JSONObject object = new JSONObject(responseJson);
     		throw new Exception(object.optString("error", "Expected String[][], got: " + object.toString()));
     	}
-    	return Util.toDoubleStringArray(new JSONArray(responseJson));
+    	return HttpUtils.toDoubleStringArray(new JSONArray(responseJson));
 	}
     
     public static String[][] tokenizeSentences(Collection<String> sentences) throws Exception {
@@ -40,12 +40,12 @@ public class Tokenizer {
     	request.put("token", HebrewNLP.getPassword());
     	request.put("sentences", sentences);
     	String requestJson = request.toString();
-    	String responseJson = Util.postJSONData(PREPROCESS_TOKENIZER_ENDPOINT, requestJson);
+    	String responseJson = HttpUtils.postJSONData(PREPROCESS_TOKENIZER_ENDPOINT, requestJson);
     	if(!responseJson.startsWith("[")) {
     		JSONObject object = new JSONObject(responseJson);
     		throw new Exception(object.optString("error", "Expected String[][], got: " + object.toString()));
     	}
-    	return Util.toDoubleStringArray(new JSONArray(responseJson)); 	
+    	return HttpUtils.toDoubleStringArray(new JSONArray(responseJson)); 	
 	}
     
 	public static String[] tokenizeSentence(String sentence) throws Exception {
@@ -56,12 +56,12 @@ public class Tokenizer {
     	request.put("token", HebrewNLP.getPassword());
     	request.put("sentence", sentence);
     	String requestJson = request.toString();
-    	String responseJson = Util.postJSONData(PREPROCESS_TOKENIZER_ENDPOINT, requestJson);
+    	String responseJson = HttpUtils.postJSONData(PREPROCESS_TOKENIZER_ENDPOINT, requestJson);
     	if(!responseJson.startsWith("[")) {
     		JSONObject object = new JSONObject(responseJson);
     		throw new Exception(object.optString("error", "Expected String[], got: " + object.toString()));
     	}
-    	return Util.toStringArray(new JSONArray(responseJson));
+    	return HttpUtils.toStringArray(new JSONArray(responseJson));
 	}
 	
 }
