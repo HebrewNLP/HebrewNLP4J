@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import il.co.hebrewnlp.morphology.MorphInfo;
+import il.co.hebrewnlp.names.NameInfo;
 
 public class HttpUtils {
 	
@@ -58,6 +59,19 @@ public class HttpUtils {
 				arr[i++] = toStringArray((JSONArray)obj);
 			}else {
 				throw new IllegalStateException("Expected JSONArray got " + obj.getClass());
+			}
+		}
+		return arr;
+	}
+	
+	public static NameInfo[] toNameInfoArray(JSONArray array) {
+		NameInfo[] arr = new NameInfo[array.length()];
+		int i = 0;
+		for(Object obj : array) {
+			if(obj instanceof JSONObject) {
+				arr[i++] = NameInfo.fromJson((JSONObject)obj);				
+			}else {
+				throw new IllegalStateException("Expected JSONObject got " + obj.getClass());
 			}
 		}
 		return arr;

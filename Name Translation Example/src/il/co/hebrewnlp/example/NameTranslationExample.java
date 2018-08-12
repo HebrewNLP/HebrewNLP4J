@@ -1,8 +1,8 @@
 package il.co.hebrewnlp.example;
 
 import il.co.hebrewnlp.HebrewNLP;
-import il.co.hebrewnlp.NameTranslation;
-import il.co.hebrewnlp.NameTranslation.Language;
+import il.co.hebrewnlp.names.NameTranslation;
+import il.co.hebrewnlp.names.NameTranslation.Language;
 
 public class NameTranslationExample {
 

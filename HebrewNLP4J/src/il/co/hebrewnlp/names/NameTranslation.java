@@ -1,4 +1,4 @@
-package il.co.hebrewnlp;
+package il.co.hebrewnlp.names;
 
 import java.io.Serializable;
 import java.util.Collection;
@@ -6,9 +6,12 @@ import java.util.Collection;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import il.co.hebrewnlp.HebrewNLP;
+import il.co.hebrewnlp.HttpUtils;
+
 public class NameTranslation {
 	
-	public static final String NAME_TRANSLATION_ENDPOINT = "/service/translation/names";
+	public static final String NAME_TRANSLATION_ENDPOINT = "/service/names/translation";
 
     public enum Language implements Serializable, Cloneable {
     	HEBREW,

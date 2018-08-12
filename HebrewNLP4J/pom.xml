@@ -4,7 +4,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>HebrewNLP</groupId>
 	<artifactId>HebrewNLP4J</artifactId>
-	<version>1.5.1</version>
+	<version>1.6.0</version>
 	<name>HebrewNLP</name>
 	<description>Java Library for the HebrewNLP API</description>
 	<build>
